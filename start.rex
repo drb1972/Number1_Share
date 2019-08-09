@@ -24,19 +24,15 @@ Exit
 
 PASS:
    /* To check if Profiles & password are ok */
-   'bright tso issue command "TIME"'
+   sw = 'N'
    stem = rxqueue("Create")
    call rxqueue "Set",stem
    'bright tso issue command "TIME" | rxqueue' stem
-   say 'queued()' queued()
-   if queued() < 1 then exit 8
    do queued()
       pull msg
-      say msg
-      parse var msg ikj 'TIME-' . 
-      say ikj
+      if pos('IKJ56650I',msg) > 0 then sw = 'Y' 
    end   
-   if ikj = 'IKJ56650I' then say 'Correct TSO access'
+   if sw = 'Y' then say 'Correct TSO access'
    else exit 8
    call rxqueue "Delete", stem
 return
