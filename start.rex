@@ -111,6 +111,14 @@ TESTT_UK:
    say copies('=',40)
    call test1_uk 
    call test2_uk
+
+test1_uk = 'KO'
+
+   if test1_uk = 'OK' & test2_uk = 'OK' then say 'Tests in 'env 'OK'
+   else do
+      say 'Tests in 'env 'not OK'
+      exit 8
+   end   
 return
 
 INSTALL:
@@ -152,6 +160,7 @@ INSTALL:
       call rxqueue "Delete", out
       out = rxqueue("Create")
       call rxqueue "Set",out 
+      say 'Copying REXXN1 from 'filename_p 'to 'filename_p_b
       'bright zos-extended-files copy data-set ', 
       '"'filename_p'(REXXN1)" "'filename_p_b'(REXXN1)" | rxqueue' out
       do queued()
@@ -172,6 +181,7 @@ INSTALL:
    /* Copy REXXN1 from TEST to PROD */
    out = rxqueue("Create")
    call rxqueue "Set",out 
+   say 'Copying REXXN1 from 'filename_t 'to 'filename_p
    'bright zos-extended-files copy data-set ', 
    '"'filename_t'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
    do queued()
@@ -217,6 +227,7 @@ TESTP_UK:
                /* Copy REXXN1 from PROD.BACKUP to PROD */
                out = rxqueue("Create")
                call rxqueue "Set",out 
+               say 'Copying REXXN1 from 'filename_p_b 'to 'filename_p
                'bright zos-extended-files copy data-set ', 
                '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
                do queued()
@@ -310,6 +321,11 @@ TESTT_US:
    say copies('=',40)
    call test1_us
    call test2_us
+   if test1_us = 'OK' & test2_us = 'OK' then say 'Tests in 'env 'OK'
+   else do
+      say 'Tests in 'env 'not OK'
+      exit 8
+   end
 return
 
 TESTP_US:
