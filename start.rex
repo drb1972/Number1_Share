@@ -23,6 +23,7 @@ interpret call STEP
 Exit
 
 PLUGINS:
+'bright plugins install @brightside/zos-extended-files'
 'bright plugins list'
 return
 
