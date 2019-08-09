@@ -23,8 +23,11 @@ interpret call STEP
 Exit
 
 PLUGINS:
-'bright plugins install C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz'
-'bright plugins list'
+'node --version'
+'npm --version'
+'bright --version'
+/*'bright plugins install C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz'*/
+/*'bright plugins list'*/
 return
 
 
