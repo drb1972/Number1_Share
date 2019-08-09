@@ -32,10 +32,11 @@ PASS:
    if queued() < 1 then exit 8
    do queued()
       pull msg
-      parse var msg ikj ' TIME-' . 
-      if ikj = 'IKJ56650I' then ikj = 'Y'
+      say msg
+      parse var msg ikj 'TIME-' . 
+      say ikj
    end   
-   if ikj = 'Y' then say 'Correct TSO access'
+   if ikj = 'IKJ56650I' then say 'Correct TSO access'
    else exit 8
    call rxqueue "Delete", stem
 return
