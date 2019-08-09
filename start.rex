@@ -24,6 +24,7 @@ Exit
 
 PASS:
    /* To check if Profiles & password are ok */
+   'bright tso issue command "TIME"'
    stem = rxqueue("Create")
    call rxqueue "Set",stem
    'bright tso issue command "TIME" | rxqueue' stem
@@ -35,6 +36,7 @@ PASS:
    end   
    if ikj = 'Y' then say 'Correct TSO access'
    else exit 8
+   call rxqueue "Delete", stem
 return
 
 ALLOC:
