@@ -22,23 +22,6 @@ master_us  = TSOID||'.N1US.MASTER'
 interpret call STEP
 Exit
 
-PLUGINS:
-'node --version'
-'npm --version'
-'bright --version'
-'npm install'
-/* Needed to install plugins the first time */
-/*'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz"'*/
-/* 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-jobs.tgz"'
-'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\secure-credential-store.tgz"'
-'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\ops.tgz"'
-'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\filemasterplus.tgz"'
-'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\endevor.tgz"'
-'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\cics.tgz"'
- */'bright plugins list'
-return
-
-
 PASS:
    /* To check if Profiles & password are ok */
    sw = 'N'
@@ -440,3 +423,20 @@ test_us:
    end       
    call rxqueue "Delete", stem
 return us_title us_artist
+
+PLUGINS:
+'node --version'
+'npm --version'
+'bright --version'
+'npm install'
+/* Needed to install plugins the first time */
+/*'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz"'*/
+/* 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-jobs.tgz"'
+'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\secure-credential-store.tgz"'
+'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\ops.tgz"'
+'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\filemasterplus.tgz"'
+'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\endevor.tgz"'
+'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\cics.tgz"'
+ */'bright plugins list'
+return
+
