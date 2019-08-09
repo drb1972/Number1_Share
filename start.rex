@@ -27,9 +27,9 @@ PLUGINS:
 'npm --version'
 'bright --version'
 'npm install'
-'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz"'
+/*'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz"'*/
 /*'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\package"'*/
-/*'bright plugins list'*/
+'bright plugins list'
 return
 
 
