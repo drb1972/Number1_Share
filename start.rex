@@ -28,6 +28,7 @@ PASS:
    stem = rxqueue("Create")
    call rxqueue "Set",stem
    'bright tso issue command "TIME" | rxqueue' stem
+   say 'queued()' queued()
    if queued() < 1 then exit 8
    do queued()
       pull msg
