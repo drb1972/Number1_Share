@@ -120,8 +120,8 @@ INSTALL:
 
    /* Copy REXXN1 from PROD to PROD.BACKUP */
    out = rxqueue("create")
-   call rxqueue "Sete",out
-   'bright zos-files list all-members "'filename_p'" | grep REXXN1' 
+   call rxqueue "Set",out
+   'bright zos-files list all-members "'filename_p'" | rxqueue' out 
    if queued() > 0 then do
       call rxqueue "Delete", out
       out = rxqueue("Create")
@@ -180,33 +180,36 @@ TESTP_UK:
          filename_p_b = filename_p || '.BACKUP'
          stem = rxqueue("create")
          call rxqueue "Sete",stem
-         'bright zos-files list all-members "'filename_p_b'" | grep REXXN1' 
+         'bright zos-files list all-members "'filename_p_b'" | rxqueue' stem 
          if queued() > 0 then do
-            call rxqueue "Delete", stem
-            say 'Launching BACKOUT to restore PROD library'
-            /* Copy REXXN1 from PROD.BACKUP to PROD */
-            out = rxqueue("Create")
-            call rxqueue "Set",out 
-            'bright zos-extended-files copy data-set ', 
-            '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
-            do queued()
-              pull line
-               say '>> ' line
-               parse var line 'rc:' rrc
-               if rc = 0 then do 
-                  say 'Installation succesful'
-                  leave
-               end     
-               else do 
-                  say 'ERROR ' rrc
-                  leave
-               end
-            end   
+            pull member
+            if member = 'REXXN1' then do
+               call rxqueue "Delete", stem
+               say 'Launching BACKOUT to restore PROD library'
+               /* Copy REXXN1 from PROD.BACKUP to PROD */
+               out = rxqueue("Create")
+               call rxqueue "Set",out 
+               'bright zos-extended-files copy data-set ', 
+               '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
+               do queued()
+                  pull line
+                  say '>> ' line
+                  parse var line 'rc:' rrc
+                  if rc = 0 then do 
+                     say 'Installation succesful'
+                     leave
+                  end     
+                  else do 
+                     say 'ERROR ' rrc
+                     leave
+                  end
+               end   /* do queued() */ 
+            end      /* if member  */  
             call rxqueue "Delete", out 
-         end
-      end 
-      exit 8 /* makes Jenkins stop */
-   end
+         end         /* if queued() > 0 */
+      end            /* if env = PROD */
+      exit 8         /* makes Jenkins stop */
+   end               /* if Tests not ok */
 return
 
 test1_uk:
@@ -223,8 +226,8 @@ test1_uk:
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
    param   = "'19600826'"
    call test_uk uk_title uk_artist
-   if uk_title = 'APACHE' & uk_artist = 'SHADOWS' then test1 = 'OK'
-   say 'TEST1 ' test1
+   if uk_title = 'APACHE' & uk_artist = 'SHADOWS' then test1_uk = 'OK'
+   say 'TEST1 ' test1_uk
 return
 
 test2_uk:
@@ -240,8 +243,8 @@ test2_uk:
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
    param   = "'18600826'"
    call test_uk uk_title uk_artist
-   if uk_title = '' & uk_artist = '' then test2 = 'OK'
-   say 'TEST2 ' test2
+   if uk_title = '' & uk_artist = '' then test2_uk = 'OK'
+   say 'TEST2 ' test2_uk
 return
 
 test_uk:
@@ -294,8 +297,8 @@ test1_us:
    param   = "'19600826'"
    call test_us us_title us_artist
    if us_title  = 'IT''S NOW OR NEVER' & ,
-      us_artist = 'ELVIS PRESLEY' then test1 = 'OK'
-   say 'TEST1 ' test1
+      us_artist = 'ELVIS PRESLEY' then test1_us = 'OK'
+   say 'TEST1 ' test1_us
 return
 
 test2_us:
@@ -311,8 +314,8 @@ test2_us:
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
    param   = "'18600826'"
    call test_us us_title us_artist
-   if us_title = '' & us_artist = '' then test2 = 'OK'
-   say 'TEST2 ' test2
+   if us_title = '' & us_artist = '' then test2_us = 'OK'
+   say 'TEST2 ' test2_us
 return
 
 test_us:
