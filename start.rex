@@ -29,13 +29,13 @@ PLUGINS:
 'npm install'
 /* Needed to install plugins the first time */
 /*'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz"'*/
-'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-jobs.tgz"'
+/* 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-jobs.tgz"'
 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\secure-credential-store.tgz"'
 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\ops.tgz"'
 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\filemasterplus.tgz"'
 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\endevor.tgz"'
 'bright plugins install "C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\cics.tgz"'
-'bright plugins list'
+ */'bright plugins list'
 return
 
 
