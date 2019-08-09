@@ -30,10 +30,16 @@ PASS:
    'bright tso issue command "TIME" | rxqueue' stem
    do queued()
       pull msg
-      if pos('IKJ56650I',msg) > 0 then sw = 'Y' 
+      if pos('IKJ56650I',msg) > 0 then do
+         sw = 'Y' 
+         leave
+      end   
    end   
    if sw = 'Y' then say 'Correct TSO access'
-   else exit 8
+   else do
+      say 'Check your credentials'
+      exit 8
+   end   
    call rxqueue "Delete", stem
 return
 
