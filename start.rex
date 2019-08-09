@@ -111,9 +111,6 @@ TESTT_UK:
    say copies('=',40)
    call test1_uk 
    call test2_uk
-
-test1_uk = 'KO'
-
    if test1_uk = 'OK' & test2_uk = 'OK' then say 'Tests in 'env 'OK'
    else do
       say 'Tests in 'env 'not OK'
@@ -208,6 +205,9 @@ TESTP_UK:
    call test1_uk
    call test2_uk
    say copies('=',40)
+
+test1_uk = 'KO' /*dxr*/
+
 
    if test1_uk = 'OK' & test2_uk = 'OK' then say 'Tests in 'env 'OK'
    else do
