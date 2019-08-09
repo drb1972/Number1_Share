@@ -1,0 +1,22 @@
+{
+  "name": "number1_share",
+  "version": "1.0.0",
+  "description": "Simple Brightside Rexx Pipeline Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "testrexx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drb1972/Number1_Share.git"
+  },
+  "keywords": [
+    "[]"
+  ],
+  "author": "DXR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drb1972/Number1_Share/issues"
+  },
+  "homepage": "https://github.com/drb1972/Number1_Share#readme"
+}

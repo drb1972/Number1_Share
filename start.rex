@@ -26,7 +26,8 @@ PLUGINS:
 'node --version'
 'npm --version'
 'bright --version'
-/*'bright plugins install C:\Users\dr891415\AppData\Roaming\CA\Brightside EE\src\zos-extended-files.tgz'*/
+'npm install'
+'bright plugins install @brightside/zos-extended-files'
 /*'bright plugins list'*/
 return
 
