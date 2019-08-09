@@ -11,6 +11,13 @@ arg STEP
 filename_t = TSOID||'.N1.TEST.REXX'
 filename_p = TSOID||'.N1.PROD.REXX'
 master_uk  = TSOID||'.N1UK.MASTER'
+'bright profiles create zosmf-profile diego-zosmf' ,
+' --host mstrsvw.lvn.broadcom.net --port 449 ' ,
+'--user roddi01 --pass Culo0719 --reject-unauthorized false'
+
+'bright profiles create tso-profile diego-tso --account 41000000' ,
+' --region-size 250000 --logon-procedure CATSO'
+
 /* [dxr]
 master_us  = TSOID||'.N1US.MASTER' 
 [dxr] */
