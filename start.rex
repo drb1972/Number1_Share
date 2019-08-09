@@ -172,6 +172,7 @@ TESTP_UK:
    call test1_uk
    call test2_uk
    say copies('=',40)
+
    if test1_uk = 'OK' & test2_uk = 'OK' then say 'Tests in 'env 'OK'
    else do
       say 'Tests in 'env 'not OK'
@@ -184,6 +185,7 @@ TESTP_UK:
          if queued() > 0 then do
             pull member
             if member = 'REXXN1' then do
+               member_found = 'Y'
                call rxqueue "Delete", stem
                say 'Launching BACKOUT to restore PROD library'
                /* Copy REXXN1 from PROD.BACKUP to PROD */
@@ -206,7 +208,9 @@ TESTP_UK:
                end   /* do queued() */ 
             end      /* if member  */  
             call rxqueue "Delete", out 
+            if member_found <> 'Y' then say 'Member not found in 'filename_p_b 
          end         /* if queued() > 0 */
+         else say 'Empty BackUp library'
       end            /* if env = PROD */
       exit 8         /* makes Jenkins stop */
    end               /* if Tests not ok */
@@ -280,6 +284,58 @@ TESTT_US:
    say copies('=',40)
    call test1_us
    call test2_us
+return
+
+TESTP_US:
+   env = 'PROD'
+   say copies('=',40)
+   say '>> TESTP_US - TESTING in 'env
+   say copies('=',40)
+   call test1_us
+   call test2_us
+   say copies('=',40)
+
+   if test1_us = 'OK' & test2_us = 'OK' then say 'Tests in 'env 'OK'
+   else do
+      say 'Tests in 'env 'not OK'
+      /* BACKOUT */
+      if env = 'PROD' then do
+         filename_p_b = filename_p || '.BACKUP'
+         stem = rxqueue("create")
+         call rxqueue "Sete",stem
+         'bright zos-files list all-members "'filename_p_b'" | rxqueue' stem 
+         if queued() > 0 then do
+            pull member
+            if member = 'REXXN1' then do
+               member_found = 'Y'
+               call rxqueue "Delete", stem
+               say 'Launching BACKOUT to restore PROD library'
+               /* Copy REXXN1 from PROD.BACKUP to PROD */
+               out = rxqueue("Create")
+               call rxqueue "Set",out 
+               'bright zos-extended-files copy data-set ', 
+               '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
+               do queued()
+                  pull line
+                  say '>> ' line
+                  parse var line 'rc:' rrc
+                  if rc = 0 then do 
+                     say 'Installation succesful'
+                     leave
+                  end     
+                  else do 
+                     say 'ERROR ' rrc
+                     leave
+                  end
+               end   /* do queued() */ 
+            end      /* if member  */  
+            call rxqueue "Delete", out 
+            if member_found <> 'Y' then say 'Member not found in 'filename_p_b 
+         end         /* if queued() > 0 */
+         else say 'Empty BackUp library'
+      end            /* if env = PROD */
+      exit 8         /* makes Jenkins stop */
+   end               /* if Tests not ok */
 return
 
 test1_us:
