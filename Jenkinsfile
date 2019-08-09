@@ -9,7 +9,6 @@ pipeline {
         stage('Upload') {
             steps {
                 sh "rexx start upload"
-                }
             }
         }
         stage('Test in TEST UK') {
