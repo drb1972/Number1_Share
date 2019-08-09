@@ -22,6 +22,11 @@ master_us  = TSOID||'.N1US.MASTER'
 interpret call STEP
 Exit
 
+PLUGINS:
+'bright plugins list'
+return
+
+
 PASS:
    /* To check if Profiles & password are ok */
    sw = 'N'
