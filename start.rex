@@ -11,7 +11,9 @@ arg STEP
 filename_t = TSOID||'.N1.TEST.REXX'
 filename_p = TSOID||'.N1.PROD.REXX'
 master_uk  = TSOID||'.N1UK.MASTER'
-/* master_us  = TSOID||'.N1US.MASTER' */
+/* [dxr]
+master_us  = TSOID||'.N1US.MASTER' 
+[dxr] */
 interpret call STEP
 Exit
 
@@ -46,7 +48,8 @@ ALLOC:
    end
    call rxqueue "Delete", stem
    
-   /* Create MASTERUS file if doesn't exist 
+   /* Create MASTERUS file if doesn't exist */
+   /* [dxr]
    stem = rxqueue("Create")
    call rxqueue "Set",stem
    'bright zos-files list data-set "'master_us'" | rxqueue' stem
@@ -58,7 +61,7 @@ ALLOC:
       say master_us 'Already exists'
    end
    call rxqueue "Delete", stem
-   */
+      [dxr] */
 return
 
 UPLOAD:
@@ -69,8 +72,10 @@ UPLOAD:
    'bright files ul dir-to-pds "cntl" "'filename_t'"'
    say 'Uploading 'master_uk
    'bright files ul file-to-data-set "'listUKMaster.txt'" "'master_uk'"'
-   /* say 'Uploading 'master_us
-   'bright files ul file-to-data-set "'listUSMaster.txt'" "'master_us'"' */
+   /* [dxr] 
+   say 'Uploading 'master_us
+   'bright files ul file-to-data-set "'listUSMaster.txt'" "'master_us'"' 
+   [dxr] */
 return
 
 TESTT_UK:
@@ -78,8 +83,8 @@ TESTT_UK:
    say copies('=',40)
    say '>> TESTT_UK - TESTING in 'env
    say copies('=',40)
-   call test1 
-   call test2 
+   call test1_uk 
+   call test2_uk
 return
 
 INSTALL:
@@ -91,7 +96,6 @@ INSTALL:
    call rxqueue "Set",stem
    'bright zos-files list data-set "'filename_p'" | rxqueue' stem
    if QUEUED() = 0 then do
-      empty_prod = 'Y'
       say 'Creating ' filename_p
       'bright zos-files create data-set-partitioned "'filename_p'"'
    end
@@ -117,7 +121,7 @@ INSTALL:
    /* Copy REXXN1 from PROD to PROD.BACKUP */
    out = rxqueue("create")
    call rxqueue "Sete",out
-   'bright zos-files list all-members "'filename_p_b'" | grep REXXN1' 
+   'bright zos-files list all-members "'filename_p'" | grep REXXN1' 
    if queued() > 0 then do
       call rxqueue "Delete", out
       out = rxqueue("Create")
@@ -165,44 +169,47 @@ TESTP_UK:
    say copies('=',40)
    say '>> TESTP_UK - TESTING in 'env
    say copies('=',40)
-   call test1 
-   call test2 
+   call test1_uk
+   call test2_uk
    say copies('=',40)
-   if test1 = 'OK' & test2 = 'OK' then say 'Tests in 'env 'OK'
+   if test1_uk = 'OK' & test2_uk = 'OK' then say 'Tests in 'env 'OK'
    else do
       say 'Tests in 'env 'not OK'
-      say 'Launching BACKOUT to restore PROD library'
-      filename_p_b = filename_p || '.BACKUP'
       /* BACKOUT */
-      if env = 'PROD' & empty_prod <> 'Y' then do
-         /* Copy REXXN1 from PROD.BACKUP to PROD */
-         out = rxqueue("Create")
-         call rxqueue "Set",out 
-         'bright zos-extended-files copy data-set ', 
-         '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
-         do queued()
-            pull line
-            say '>> ' line
-            parse var line 'rc:' rrc
-            if rc = 0 then do 
-               say 'Installation succesful'
-               leave
-            end     
-            else do 
-               say 'ERROR ' rrc
-               leave
-            end
-         end   
-         call rxqueue "Delete", out 
-
-
-
+      if env = 'PROD' then do
+         filename_p_b = filename_p || '.BACKUP'
+         stem = rxqueue("create")
+         call rxqueue "Sete",stem
+         'bright zos-files list all-members "'filename_p_b'" | grep REXXN1' 
+         if queued() > 0 then do
+            call rxqueue "Delete", stem
+            say 'Launching BACKOUT to restore PROD library'
+            /* Copy REXXN1 from PROD.BACKUP to PROD */
+            out = rxqueue("Create")
+            call rxqueue "Set",out 
+            'bright zos-extended-files copy data-set ', 
+            '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
+            do queued()
+              pull line
+               say '>> ' line
+               parse var line 'rc:' rrc
+               if rc = 0 then do 
+                  say 'Installation succesful'
+                  leave
+               end     
+               else do 
+                  say 'ERROR ' rrc
+                  leave
+               end
+            end   
+            call rxqueue "Delete", out 
+         end
       end 
       exit 8 /* makes Jenkins stop */
    end
 return
 
-test1:
+test1_uk:
    say copies('=',40)
    say 'Beggining Test1...'
    say copies('=',40)
@@ -215,12 +222,12 @@ test1:
    call rxqueue "Set", stem
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
    param   = "'19600826'"
-   call test uk_title uk_artist
+   call test_uk uk_title uk_artist
    if uk_title = 'APACHE' & uk_artist = 'SHADOWS' then test1 = 'OK'
    say 'TEST1 ' test1
 return
 
-test2:
+test2_uk:
    say copies('=',40)
    say 'Beggining Test2...'
    say copies('=',40)
@@ -232,12 +239,12 @@ test2:
    call rxqueue "Set", stem
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
    param   = "'18600826'"
-   call test uk_title uk_artist
+   call test_uk uk_title uk_artist
    if uk_title = '' & uk_artist = '' then test2 = 'OK'
    say 'TEST2 ' test2
 return
 
-test:
+test_uk:
    'bright tso issue cmd --ssm "ex 'command' 'param'" | rxqueue' stem
    uk_title  = ''
    uk_artist = ''
@@ -261,3 +268,73 @@ test:
    call rxqueue "Delete", stem
 return uk_title uk_artist
 
+/* For later use */
+
+TESTT_US:
+   env = 'TEST'
+   say copies('=',40)
+   say '>> TESTT_US - TESTING in 'env
+   say copies('=',40)
+   call test1_us
+   call test2_us
+return
+
+test1_us:
+   say copies('=',40)
+   say 'Beggining Test1...'
+   say copies('=',40)
+   say 'Expected result for 19600826: '
+   say 'US_Title : IT''S NOW OR NEVER'
+   say 'US_Artist: ELVIS PRESLEY' 
+   say copies('=',40)
+   test1 = 'KO'
+   stem = rxqueue("Create") 
+   call rxqueue "Set", stem
+   command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
+   param   = "'19600826'"
+   call test_us us_title us_artist
+   if us_title  = 'IT''S NOW OR NEVER' & ,
+      us_artist = 'ELVIS PRESLEY' then test1 = 'OK'
+   say 'TEST1 ' test1
+return
+
+test2_us:
+   say copies('=',40)
+   say 'Beggining Test2...'
+   say copies('=',40)
+   say 'Expected result for 18600826: '
+   say 'NULL value'
+   say copies('=',40)
+   test2 = 'KO'
+   stem = rxqueue("Create") 
+   call rxqueue "Set", stem
+   command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
+   param   = "'18600826'"
+   call test_us us_title us_artist
+   if us_title = '' & us_artist = '' then test2 = 'OK'
+   say 'TEST2 ' test2
+return
+
+test_us:
+   'bright tso issue cmd --ssm "ex 'command' 'param'" | rxqueue' stem
+   us_title  = ''
+   us_artist = ''
+   do queued()
+      rest = ''
+      pull line
+      if line = 'NULL' then do
+         say 'NULL value'
+         leave
+      end
+      parse var line 'US_TITLE :' rest
+      if rest <> '' then us_title = rest
+      parse var line 'US_ARTIST:' rest
+      if rest <> '' then us_artist = rest
+      if us_title <> '' & us_artist <> '' then do 
+         say 'Result ==> US_Title : ' us_title
+         say 'Result ==> US_Artist: ' us_artist
+         leave
+      end
+   end       
+   call rxqueue "Delete", stem
+return us_title us_artist
