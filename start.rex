@@ -168,9 +168,7 @@ INSTALL:
    out = rxqueue("create")
    call rxqueue "Set",out
    'bright zos-files list all-members "'filename_p'" | rxqueue' out 
-   /*dxr*/ say 'queued() 'queued()
    if queued() > 0 then do
-   /*dxr*/ pull temp;say 'temp 'temp
       call rxqueue "Delete", out
       out = rxqueue("Create")
       call rxqueue "Set",out 
@@ -201,7 +199,7 @@ INSTALL:
    do queued()
       pull line
       say '>> ' line
-      parse var line 'rc:' rrc
+      parse var line . 'CODE WAS' rrc
       if rrc = 0 then do 
          say 'Succesful Install'
          leave
