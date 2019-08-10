@@ -183,7 +183,7 @@ INSTALL:
          leave
       end
    end   
-   if success = 'Y' then say 'Succesful Install'
+   if success = 'Y' then say 'Succesful BackUp'
       else do 
          say 'ERROR ' line
          exit 8
