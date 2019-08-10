@@ -92,15 +92,52 @@ return
 
 UPLOAD:
    say copies('=',40)
-   say '>> UOLOAD - Upload libraries'
+   say '>> UPLOAD - Upload libraries'
    say copies('=',40)
+   /* Writes timestamp in REXXN1 */
+   /* Read file */
+   path = '.\cntl\rexxn1.rex'
+   file=.stream~new(path) 
+   file~open("read") 
+   drop file.
+   i=0
+   do while file~lines<>0  
+      i=i+1
+      file.i=file~linein
+   end
+   file~close
+   file.0=i 
+   /* Write file replacing timestamp */
+   file~open("both replace") 
+   timestamp = .dateTime~new
+   do i=1 to file.0  
+      if pos("timestamp - ",file.i) > 0 then do
+         file.i='/* timestamp - 'timestamp '*/'
+      end   
+      file~lineout(file.i)  
+   end
+   file~close
+
    say 'Uploading 'filename_t
-   'bright files ul dir-to-pds "cntl" "'filename_t'"'
+   stem = rxqueue("Create")
+   call rxqueue "Set",stem
+   'bright files ul dir-to-pds' , 
+      '"cntl" "'filename_t'" | rxqueue' stem
+   call rxqueue "Delete",stem
+   stem = rxqueue("Create")
+   call rxqueue "Set",stem
    say 'Uploading 'master_uk
-   'bright files ul file-to-data-set "'listUKMaster.txt'" "'master_uk'"'
+   'bright files ul file-to-data-set' ,
+      '"'listUKMaster.txt'" "'master_uk'" | rxqueue' stem
+   call rxqueue "Delete",stem
+   
    /* [dxr] 
-   say 'Uploading 'master_us
-   'bright files ul file-to-data-set "'listUSMaster.txt'" "'master_us'"' 
+   stem = rxqueue("Create")
+   call rxqueue "Set",stem
+      say 'Uploading 'master_us
+   'bright files ul file-to-data-set' ,
+      '"'listUSMaster.txt'" "'master_us'" | rxqueue' stem 
+   call rxqueue "Delete",stem
    [dxr] */
 return
 
@@ -176,17 +213,17 @@ INSTALL:
    end   
 
    /* Copy REXXN1 from TEST to PROD */
+   say 'Copying REXXN1 from 'filename_t 'to 'filename_p
    out = rxqueue("Create")
    call rxqueue "Set",out 
-   say 'Copying REXXN1 from 'filename_t 'to 'filename_p
    'bright zos-extended-files copy data-set ', 
    '"'filename_t'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
    do queued()
       pull line
       say '>> ' line
       parse var line 'rc:' rrc
-      if rc = 0 then do 
-         say 'Installation succesful'
+      if rrc = 0 then do 
+         say 'Succesful Install'
          leave
       end     
       else do 
