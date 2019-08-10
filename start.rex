@@ -273,7 +273,7 @@ test1_uk:
    say 'UK_Title : APACHE'
    say 'UK_Artist: SHADOWS' 
    say copies('=',40)
-   test1 = 'KO'
+   test1_UK = 'KO'
    stem = rxqueue("Create") 
    call rxqueue "Set", stem
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
@@ -290,7 +290,7 @@ test2_uk:
    say 'Expected result for 18600826: '
    say 'NULL value'
    say copies('=',40)
-   test2 = 'KO'
+   test2_UK = 'KO'
    stem = rxqueue("Create") 
    call rxqueue "Set", stem
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
@@ -400,7 +400,7 @@ test1_us:
    say "US_Title : IT'S NOW OR NEVER"
    say 'US_Artist: ELVIS PRESLEY' 
    say copies('=',40)
-   test1 = 'KO'
+   test1_US = 'KO'
    stem = rxqueue("Create") 
    call rxqueue "Set", stem
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
@@ -418,7 +418,7 @@ test2_us:
    say 'Expected result for 18600826: '
    say 'NULL value'
    say copies('=',40)
-   test2 = 'KO'
+   test2_US = 'KO'
    stem = rxqueue("Create") 
    call rxqueue "Set", stem
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
