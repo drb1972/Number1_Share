@@ -6,17 +6,10 @@
   "scripts": {
     "test": "testrexx"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/drb1972/Number1_Share.git"
-  },
-  "keywords": [
+   "keywords": [
     "[]"
   ],
   "author": "DXR",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/drb1972/Number1_Share/issues"
-  },
-  "homepage": "https://github.com/drb1972/Number1_Share#readme"
+  "license": "ISC"
+  
 }
