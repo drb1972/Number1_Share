@@ -22,6 +22,6 @@ do i=1 to file.0
     file~lineout(file.i)  
 end
 file~close
-'git commit -a -m "c1" -u' 
+'git commit -a -m "c1"' 
 'git push'
 exit
