@@ -22,6 +22,8 @@ do i=1 to file.0
     file~lineout(file.i)  
 end
 file~close
+'git config --global user.email drb1972@gmail.com'
+'git config --global user.name Diego' 
 'git commit -a -m "c1"' 
 'git push'
 exit
