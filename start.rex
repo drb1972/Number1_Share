@@ -11,7 +11,8 @@ arg STEP
 filename_t = TSOID||'.N1.TEST.REXX'
 filename_p = TSOID||'.N1.PROD.REXX'
 master_uk  = TSOID||'.N1UK.MASTER'
-/*
+/* In case I change my TSO password */
+/*  
 'bright profiles update zosmf-profile diego-zosmf' ,
 '--user roddi01 --pass xxxxxxxx'
 */
@@ -167,7 +168,9 @@ INSTALL:
    out = rxqueue("create")
    call rxqueue "Set",out
    'bright zos-files list all-members "'filename_p'" | rxqueue' out 
+   /*dxr*/ say 'queued() 'queued()
    if queued() > 0 then do
+   /*dxr*/ pull temp;say 'temp 'temp
       call rxqueue "Delete", out
       out = rxqueue("Create")
       call rxqueue "Set",out 
