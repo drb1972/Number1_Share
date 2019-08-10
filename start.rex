@@ -178,9 +178,10 @@ INSTALL:
       success = 'N'
       do queued()
          pull line
-      if pos('CODE WAS 0',line) > 0 then do
-         success = 'Y'
-         leave
+         if pos('CODE WAS 0',line) > 0 then do
+            success = 'Y'
+            leave
+         end   
       end
    end   
    if success = 'Y' then say 'Succesful BackUp'
@@ -373,19 +374,19 @@ TESTP_US:
                call rxqueue "Set",out 
                'bright zos-extended-files copy data-set ', 
                '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
+               success = 'N'
                do queued()
-                  pull line
-                  say '>> ' line
-                  parse var line 'rc:' rrc
-                  if rc = 0 then do 
-                     say 'Installation succesful'
-                     leave
-                  end     
-                  else do 
-                     say 'ERROR ' rrc
+                  pull line 
+                  if pos('CODE WAS 0',line) > 0 then do
+                     success = 'Y'
                      leave
                   end
-               end   /* do queued() */ 
+               end
+               if success = 'Y' then say 'BackOut succesful'
+               else do 
+                  say 'ERROR ' line
+                  exit 8
+               end
             end      /* if member  */  
             call rxqueue "Delete", out 
             if member_found <> 'Y' then say 'Member not found in 'filename_p_b 
