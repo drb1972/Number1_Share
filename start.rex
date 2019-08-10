@@ -395,7 +395,7 @@ test1_us:
    say 'Beggining Test1...'
    say copies('=',40)
    say 'Expected result for 19600826: '
-   say 'US_Title : IT''S NOW OR NEVER'
+   say "US_Title : IT'S NOW OR NEVER"
    say 'US_Artist: ELVIS PRESLEY' 
    say copies('=',40)
    test1 = 'KO'
@@ -404,7 +404,7 @@ test1_us:
    command = "'RODDI01.N1."||env||".REXX(REXXN1)'"
    param   = "'19600826'"
    call test_us us_title us_artist
-   if us_title  = 'IT''S NOW OR NEVER' & ,
+   if us_title  = "IT'S NOW OR NEVER" & ,
       us_artist = 'ELVIS PRESLEY' then test1_us = 'OK'
    say 'TEST1 ' test1_us
 return
