@@ -175,18 +175,19 @@ INSTALL:
       say 'Copying REXXN1 from 'filename_p 'to 'filename_p_b
       'bright zos-extended-files copy data-set ', 
       '"'filename_p'(REXXN1)" "'filename_p_b'(REXXN1)" | rxqueue' out
+      success = 'N'
       do queued()
          pull line
-         parse var line 'rc:' rrc
-         if rc = 0 then do 
-            say 'BACKUP copy succesful'
-            leave
-         end     
-         else do 
-            say 'ERROR ' rrc 
-            leave
-         end
-      end   
+      if pos('CODE WAS 0',line) > 0 then do
+         success = 'Y'
+         leave
+      end
+   end   
+   if success = 'Y' then say 'Succesful Install'
+      else do 
+         say 'ERROR ' line
+         exit 8
+      end
       call rxqueue "Delete", out 
    end   
 
@@ -199,7 +200,6 @@ INSTALL:
    success = 'N'
    do queued()
       pull line
-      say '>> ' line
       if pos('CODE WAS 0',line) > 0 then do
          success = 'Y'
          leave
