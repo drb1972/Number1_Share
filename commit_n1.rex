@@ -14,7 +14,7 @@ file~close
 file.0=i 
 /* Write file replacing timestamp */
 file~open("both replace") 
-timestamp = .dateTime~new
+timestamp = .dateTime~new~timeOfDay
 do i=1 to file.0  
     if pos("timestamp - ",file.i) > 0 then do
         file.i='/* timestamp - 'timestamp '*/'

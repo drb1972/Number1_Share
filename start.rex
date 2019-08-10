@@ -281,9 +281,9 @@ test1_uk:
    call test_uk uk_title uk_artist
    if uk_title = 'APACHE' & uk_artist = 'SHADOWS' then test1_uk = 'OK'
    /* uncomment the following line for practice2 */
-   
+   /*
    if env = 'PROD' then test1_uk = 'KO'
-   
+   */
    say 'TEST1 ' test1_uk
 return
 
