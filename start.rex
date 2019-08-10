@@ -196,9 +196,14 @@ INSTALL:
    call rxqueue "Set",out 
    'bright zos-extended-files copy data-set ', 
    '"'filename_t'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
+      /*dxr*/say 'rc0 'rc
    do queued()
+   /*dxr*/say 'rc1 'rc
       pull line
+         /*dxr*/say 'rc2 'rc
       say '>> ' line
+         /*dxr*/say 'rc3 'rc
+      /*dxr*/iterate
       parse var line . 'CODE WAS' rrc
       if rrc = 0 then do 
          say 'Succesful Install'
