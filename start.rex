@@ -16,10 +16,9 @@ master_uk  = TSOID||'.N1UK.MASTER'
 'bright profiles update zosmf-profile diego-zosmf' ,
 '--user roddi01 --pass xxxxxxxx'
 */
-
-/* [dxr]
+/* [dxr] */
 master_us  = TSOID||'.N1US.MASTER' 
-[dxr] */
+/* [dxr] */
 interpret call STEP
 Exit
 
@@ -76,7 +75,7 @@ ALLOC:
    call rxqueue "Delete", stem
    
    /* Create MASTERUS file if doesn't exist */
-   /* [dxr]
+   /* [dxr] */
    stem = rxqueue("Create")
    call rxqueue "Set",stem
    'bright zos-files list data-set "'master_us'" | rxqueue' stem
@@ -88,7 +87,7 @@ ALLOC:
       say master_us 'Already exists'
    end
    call rxqueue "Delete", stem
-      [dxr] */
+   /*  [dxr] */
 return
 
 UPLOAD:
@@ -109,14 +108,14 @@ UPLOAD:
       '"'listUKMaster.txt'" "'master_uk'" | rxqueue' stem
    call rxqueue "Delete",stem
    
-   /* [dxr] 
+   /* [dxr] */
    stem = rxqueue("Create")
    call rxqueue "Set",stem
       say 'Uploading 'master_us
    'bright files ul file-to-data-set' ,
       '"'listUSMaster.txt'" "'master_us'" | rxqueue' stem 
    call rxqueue "Delete",stem
-   [dxr] */
+   /* [dxr] */
 return
 
 TESTT_UK:
