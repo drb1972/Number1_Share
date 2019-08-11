@@ -184,7 +184,7 @@ INSTALL:
          end   
       end
    end   
-   if success = 'Y' then say 'Succesful BackUp'
+   if success = 'Y' then say 'Successful BackUp'
    else do 
       say 'ERROR ' line
       exit 8
@@ -205,7 +205,7 @@ INSTALL:
          leave
       end
    end   
-   if success = 'Y' then say 'Succesful Install'
+   if success = 'Y' then say 'Successful Install'
    else do 
       say 'ERROR ' line
       exit 8
@@ -249,7 +249,7 @@ TESTP_UK:
                      leave
                   end
                end
-               if success = 'Y' then say 'BackOut succesful'
+               if success = 'Y' then say 'BackOut successful'
                else do 
                   say 'ERROR ' line
                   exit 8
@@ -380,7 +380,7 @@ TESTP_US:
                      leave
                   end
                end
-               if success = 'Y' then say 'BackOut succesful'
+               if success = 'Y' then say 'BackOut successful'
                else do 
                   say 'ERROR ' line
                   exit 8
