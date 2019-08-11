@@ -185,13 +185,12 @@ INSTALL:
       end
    end   
    if success = 'Y' then say 'Succesful BackUp'
-      else do 
-         say 'ERROR ' line
-         exit 8
-      end
-      call rxqueue "Delete", out 
-   end   
-
+   else do 
+      say 'ERROR ' line
+      exit 8
+   end
+   call rxqueue "Delete", out 
+   
    /* Copy REXXN1 from TEST to PROD */
    say 'Copying REXXN1 from 'filename_t 'to 'filename_p
    out = rxqueue("Create")
@@ -207,10 +206,10 @@ INSTALL:
       end
    end   
    if success = 'Y' then say 'Succesful Install'
-      else do 
-         say 'ERROR ' line
-         exit 8
-      end
+   else do 
+      say 'ERROR ' line
+      exit 8
+   end
    call rxqueue "Delete", out 
 return
 
@@ -240,22 +239,21 @@ TESTP_UK:
                /* Copy REXXN1 from PROD.BACKUP to PROD */
                out = rxqueue("Create")
                call rxqueue "Set",out 
-               say 'Copying REXXN1 from 'filename_p_b 'to 'filename_p
                'bright zos-extended-files copy data-set ', 
                '"'filename_p_b'(REXXN1)" "'filename_p'(REXXN1)" | rxqueue' out
+               success = 'N'
                do queued()
-                  pull line
-                  say '>> ' line
-                  parse var line 'rc:' rrc
-                  if rc = 0 then do 
-                     say 'Installation succesful'
-                     leave
-                  end     
-                  else do 
-                     say 'ERROR ' rrc
+                  pull line 
+                  if pos('CODE WAS 0',line) > 0 then do
+                     success = 'Y'
                      leave
                   end
-               end   /* do queued() */ 
+               end
+               if success = 'Y' then say 'BackOut succesful'
+               else do 
+                  say 'ERROR ' line
+                  exit 8
+               end
             end      /* if member  */  
             call rxqueue "Delete", out 
             if member_found <> 'Y' then say 'Member not found in 'filename_p_b 
@@ -282,9 +280,9 @@ test1_uk:
    call test_uk uk_title uk_artist
    if uk_title = 'APACHE' & uk_artist = 'SHADOWS' then test1_uk = 'OK'
    /* uncomment the following line for practice2 */
-   
+   /*
    if env = 'PROD' then test1_uk = 'KO'
-   
+   */
    say 'TEST1 ' test1_uk
 return
 
