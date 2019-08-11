@@ -266,7 +266,7 @@ return
 
 test1_uk:
    say copies('=',40)
-   say 'Beggining Test1...'
+   say 'Beginning Test1...'
    say copies('=',40)
    say 'Expected result for 19600826: '
    say 'UK_Title : APACHE'
@@ -288,7 +288,7 @@ return
 
 test2_uk:
    say copies('=',40)
-   say 'Beggining Test2...'
+   say 'Beginning Test2...'
    say copies('=',40)
    say 'Expected result for 18600826: '
    say 'NULL value'
@@ -397,7 +397,7 @@ return
 
 test1_us:
    say copies('=',40)
-   say 'Beggining Test1...'
+   say 'Beginning Test1...'
    say copies('=',40)
    say 'Expected result for 19600826: '
    say "US_Title : IT'S NOW OR NEVER"
