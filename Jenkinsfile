@@ -36,9 +36,9 @@ pipeline {
                 sh "rexx start testp_uk"
             }
         }
-                stage('Test in PROD UK') {
+                stage('Test in PROD US') {
             steps {
-                sh "rexx start testp_uk"
+                sh "rexx start testp_us"
             }
         }
     }
