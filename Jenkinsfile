@@ -21,11 +21,11 @@ pipeline {
                 sh "rexx start testt_uk"
             }
         }
-        stage('Test in TEST US') {
-            steps {
-                sh "rexx start testt_us"
-            }
-        }
+        // stage('Test in TEST US') {
+        //     steps {
+        //         sh "rexx start testt_us"
+        //     }
+        // }
                 stage('Install in PROD') {
             steps {
                 sh "rexx start install"
@@ -36,10 +36,10 @@ pipeline {
                 sh "rexx start testp_uk"
             }
         }
-                stage('Test in PROD US') {
-            steps {
-                sh "rexx start testp_us"
-            }
-        }
+        //         stage('Test in PROD US') {
+        //     steps {
+        //         sh "rexx start testp_us"
+        //     }
+        // }
     }
 }
