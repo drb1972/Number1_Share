@@ -1,0 +1,3 @@
+/* rexx */
+say 'hello'
+exit
