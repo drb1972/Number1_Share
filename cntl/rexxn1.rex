@@ -1,7 +1,7 @@
 /* REXX - Number1                         */
 /* Sample rexx to test Brightside         */
 /* Argument required in format aaaammdd   */
-/* timestamp - 2019-08zzzzzz:34:57.859000 */
+/* timestamp - 2019-08-19T14:30:15.289000 */
 arg bdate
 user = userid()
 call check_bdate

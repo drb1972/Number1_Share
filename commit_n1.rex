@@ -4,7 +4,8 @@
 drop list_update.
 stem = rxqueue("Create")
 call rxqueue "Set", stem
-'git diff --name-only | rxqueue ' stem
+/* 'git diff --name-only | rxqueue ' stem */
+'git status --short | rxqueue 'stem
 say copies('=',25)
 say 'Files to COMMIT & PUSH'
 say copies('=',25)
@@ -12,7 +13,8 @@ i = 0
 do queued()
    /* respect upper or lowercase */
    parse caseless pull line 
-   say line
+   parse var line stat line 
+   say line 'status 'stat
    ext = upper(line)
    /* Exclude this file */
    if pos('COMMIT',ext) > 0 then iterate
@@ -21,6 +23,7 @@ do queued()
       list_update.i = line
    end
 end
+call rxqueue "Delete", stem
 list_update.0 = i /* # of elements to update */
 say copies('=',25)
 
@@ -55,6 +58,7 @@ end
 
 'git config --global user.email drb1972@gmail.com'
 'git config --global user.name Diego' 
+'git add .'
 'git commit -a -m "c1"' 
 'git push'
 exit
