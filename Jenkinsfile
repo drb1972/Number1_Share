@@ -1,15 +1,45 @@
 pipeline {
     agent any
     stages {
-        stage('Steve1') {
+        stage('Check Password') {
             steps {
-                sh "rexx steve"
+                sh "rexx start pass"
             }
         }
-        stage('Steve2') {
+        stage('Alloc') {
             steps {
-                sh "rexx steve"
+                sh "rexx start alloc"
             }
         }
+        stage('Upload') {
+            steps {
+                sh "rexx start upload"
+            }
+        }
+        stage('Test in TEST UK') {
+            steps {
+                sh "rexx start testt_uk"
+            }
+        }
+        // stage('Test in TEST US') {
+        //     steps {
+        //         sh "rexx start testt_us"
+        //     }
+        // }
+                stage('Install in PROD') {
+            steps {
+                sh "rexx start install"
+            }
+        }
+                stage('Test in PROD UK') {
+            steps {
+                sh "rexx start testp_uk"
+            }
+        }
+        //         stage('Test in PROD US') {
+        //     steps {
+        //         sh "rexx start testp_us"
+        //     }
+        // }
     }
 }
