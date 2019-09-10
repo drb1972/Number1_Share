@@ -1,4 +1,5 @@
 ~*.*
+*.zip
 
 # mocha test reports
 mochawesome-report/
