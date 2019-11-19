@@ -30,6 +30,7 @@ PASS:
    'bright tso issue command "TIME" | rxqueue' stem
    do queued()
       pull msg
+      /*dxr*/ say msg
       if pos('IKJ56650I',msg) > 0 then do
          sw = 'Y' 
          leave
