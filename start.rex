@@ -26,14 +26,14 @@ PASS:
    /* To check if Profiles & password are ok */
    sw = 'N'
    stem = rxqueue("Create")
-   /*dxr*/'bright profiles create tso-profile tso-sr01brs --account ACCT# --region-size 250000 --logon-procedure CATSO'
-   /*dxr*/'bright profiles set tso tso-sr01brs'
+   /*dxr 'bright profiles create tso-profile tso-sr01brs --account ACCT# --region-size 250000 --logon-procedure CATSO' */
+   /*dxr 'bright profiles set tso tso-sr01brs' */
    call rxqueue "Set",stem
    'bright tso issue command "TIME" | rxqueue' stem
    do queued()
       pull msg
       /*dxr*/ say msg
-      if pos('IKJ56650I',msg) > 0 then do
+      if pos('TIME-',msg) > 0 then do
          sw = 'Y' 
          leave
       end   
