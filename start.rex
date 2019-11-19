@@ -27,7 +27,8 @@ PASS:
    sw = 'N'
    stem = rxqueue("Create")
    call rxqueue "Set",stem
-   'bright tso issue command "TIME" | rxqueue' stem
+   'bright profiles list zosmf' /*dxr*/
+   /*'bright tso issue command "TIME" | rxqueue' stem*/
    do queued()
       pull msg
       if pos('IKJ56650I',msg) > 0 then do
