@@ -27,7 +27,7 @@ PASS:
    sw = 'N'
    stem = rxqueue("Create")
    call rxqueue "Set",stem
-   'bright profiles list zosmf' /*dxr*/
+   'bright profiles list zosmf --sc' /*dxr*/
    /*'bright tso issue command "TIME" | rxqueue' stem*/
    do queued()
       pull msg
