@@ -26,6 +26,7 @@ PASS:
    /* To check if Profiles & password are ok */
    sw = 'N'
    stem = rxqueue("Create")
+   /*dxr*/ 'zowe profiles set zosmf zosmf-sr01brs'
    call rxqueue "Set",stem
    'bright profiles list zosmf --sc' /*dxr*/
    /*'bright tso issue command "TIME" | rxqueue' stem*/
