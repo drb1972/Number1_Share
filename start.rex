@@ -26,7 +26,7 @@ PASS:
    /* To check if Profiles & password are ok */
    sw = 'N'
    stem = rxqueue("Create")
-   /*dxr*/ 'bright profiles create zosmf-profile diego-zosmf --host sr01brs.lvn.broadcom.net --port 443 --user roddi01 --pass Boston11 --reject-unauthorized false'
+   /*dxr*/ 'bright profiles create zosmf-profile zosmf-sr01brs --host sr01brs.lvn.broadcom.net --port 443 --user roddi01 --pass Boston11 --reject-unauthorized false --ow'
    call rxqueue "Set",stem
    'bright profiles list zosmf --sc' /*dxr*/
    /*'bright tso issue command "TIME" | rxqueue' stem*/
