@@ -26,6 +26,7 @@ PASS:
    /* To check if Profiles & password are ok */
    sw = 'N'
    stem = rxqueue("Create")
+   /* incluir algo para los profiles */
    /*dxr 'bright profiles create tso-profile tso-sr01brs --account ACCT# --region-size 250000 --logon-procedure CATSO' */
    /*dxr 'bright profiles set tso tso-sr01brs' */
    call rxqueue "Set",stem
@@ -188,7 +189,7 @@ INSTALL:
    end   
    if success = 'Y' then say 'Successful BackUp'
    else do 
-      say 'ERROR ' line
+      say 'ERROR ' line /*dxr*/ l1
       exit 8
    end
    call rxqueue "Delete", out 
@@ -209,7 +210,7 @@ INSTALL:
    end   
    if success = 'Y' then say 'Successful Install'
    else do 
-      say 'ERROR ' line
+      say 'ERROR ' line /*dxr*/ l2
       exit 8
    end
    call rxqueue "Delete", out 
@@ -253,7 +254,7 @@ TESTP_UK:
                end
                if success = 'Y' then say 'BackOut successful'
                else do 
-                  say 'ERROR ' line
+                  say 'ERROR ' line /*dxr*/ l3
                   exit 8
                end
             end      /* if member  */  
@@ -384,7 +385,7 @@ TESTP_US:
                end
                if success = 'Y' then say 'BackOut successful'
                else do 
-                  say 'ERROR ' line
+                  say 'ERROR ' line /*dxr*/ l4
                   exit 8
                end
             end      /* if member  */  
