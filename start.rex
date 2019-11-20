@@ -189,7 +189,7 @@ INSTALL:
    end   
    if success = 'Y' then say 'Successful BackUp'
    else do 
-      say 'ERROR ' line /*dxr*/ l1
+      say 'First version - No BackUp'
       exit 8
    end
    call rxqueue "Delete", out 
@@ -210,7 +210,7 @@ INSTALL:
    end   
    if success = 'Y' then say 'Successful Install'
    else do 
-      say 'ERROR ' line /*dxr*/ l2
+      say 'ERROR ' line 
       exit 8
    end
    call rxqueue "Delete", out 
@@ -254,7 +254,7 @@ TESTP_UK:
                end
                if success = 'Y' then say 'BackOut successful'
                else do 
-                  say 'ERROR ' line /*dxr*/ l3
+                  say 'ERROR ' line 
                   exit 8
                end
             end      /* if member  */  
@@ -385,7 +385,7 @@ TESTP_US:
                end
                if success = 'Y' then say 'BackOut successful'
                else do 
-                  say 'ERROR ' line /*dxr*/ l4
+                  say 'ERROR ' line 
                   exit 8
                end
             end      /* if member  */  
