@@ -190,7 +190,6 @@ INSTALL:
    if success = 'Y' then say 'Successful BackUp'
    else do 
       say 'First version - No BackUp'
-      exit 8
    end
    call rxqueue "Delete", out 
    
