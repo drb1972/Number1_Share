@@ -1,7 +1,7 @@
 /* REXX - Number1                         */
 /* Sample rexx to test Brightside         */
 /* Argument required in format aaaammdd   */
-/* timestamp - 2019-08-19T14:30:15.289000 */
+/* timestamp - 2019-11-21T11:53:43.397000 */
 arg bdate
 user = userid()
 call check_bdate
@@ -13,7 +13,7 @@ call find_us
  [dxr] */
 exit
 
-/* calls -------------------------------------------------*/
+/* calls ------------------------------------------------*/
 check_bdate:
   if bdate = '' then do
      say 'Empty date, please write in format aaaammdd'
