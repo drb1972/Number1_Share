@@ -13,7 +13,7 @@ call find_us
  [dxr] */
 exit
 
-/* calls --------------------------------------------------*/
+/* calls -------------------------------------------------*/
 check_bdate:
   if bdate = '' then do
      say 'Empty date, please write in format aaaammdd'
